@@ -55,6 +55,12 @@ public class ResolvedProperty implements MemberInfoSource {
     }
 
     @Override
+    public <T extends java.lang.annotation.Annotation>  T getAnnotation(java.lang.Class<T> tClass)
+    {
+        return method.getRawMember().getAnnotation(tClass);
+    }
+
+    @Override
     public boolean isSubclassOf(Class<?> clazz) {
         return (getType() != Object.class) && clazz.isAssignableFrom(getType());
     }

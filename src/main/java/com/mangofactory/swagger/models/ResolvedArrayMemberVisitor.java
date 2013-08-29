@@ -7,7 +7,7 @@ import com.wordnik.swagger.core.DocumentationSchema;
 
 import static com.mangofactory.swagger.models.ResolvedTypes.modelName;
 
-public class ResolvedArrayMemberVisitor implements MemberVisitor {
+public class ResolvedArrayMemberVisitor extends AbstractMemberVisitor {
     private final SchemaProvider context;
 
     public ResolvedArrayMemberVisitor(SchemaProvider context) {
@@ -25,7 +25,7 @@ public class ResolvedArrayMemberVisitor implements MemberVisitor {
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public DocumentationSchema schema(MemberInfoSource member) {
+    public DocumentationSchema schemaGeneration(MemberInfoSource member) {
         Preconditions.checkArgument(member.getResolvedType() instanceof ResolvedArrayType);
         if (context.getSchemaMap().containsKey(member.getType().getSimpleName())) {
             DocumentationSchema schema = new DocumentationSchema();

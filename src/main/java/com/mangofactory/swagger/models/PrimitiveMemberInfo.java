@@ -11,6 +11,12 @@ public class PrimitiveMemberInfo implements MemberInfoSource {
     }
 
     @Override
+    public <T extends java.lang.annotation.Annotation>  T getAnnotation(java.lang.Class<T> tClass)
+    {
+        return null;
+    }
+
+    @Override
     public Class<?> getType() {
         return clazz;
     }

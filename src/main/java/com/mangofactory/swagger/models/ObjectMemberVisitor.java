@@ -3,7 +3,7 @@ package com.mangofactory.swagger.models;
 import com.google.common.base.Function;
 import com.wordnik.swagger.core.DocumentationSchema;
 
-public class ObjectMemberVisitor implements MemberVisitor {
+public class ObjectMemberVisitor extends AbstractMemberVisitor {
     private static MemberVisitor instance = new ObjectMemberVisitor();
 
     public static Function<SchemaProvider, MemberVisitor> factory() {
@@ -16,7 +16,7 @@ public class ObjectMemberVisitor implements MemberVisitor {
     }
 
     @Override
-    public DocumentationSchema schema(MemberInfoSource member) {
+    public DocumentationSchema schemaGeneration(MemberInfoSource member) {
         DocumentationSchema propertySchema = new DocumentationSchema();
         propertySchema.setName(member.getName());
         return propertySchema;

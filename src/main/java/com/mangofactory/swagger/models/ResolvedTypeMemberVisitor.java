@@ -5,6 +5,7 @@ import com.google.common.base.Function;
 import com.mangofactory.swagger.AliasedResolvedField;
 import com.wordnik.swagger.core.DocumentationAllowableListValues;
 import com.wordnik.swagger.core.DocumentationSchema;
+import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import static com.google.common.collect.Maps.*;
 import static com.mangofactory.swagger.models.Models.*;
 import static com.mangofactory.swagger.models.ResolvedTypes.*;
 
-public class ResolvedTypeMemberVisitor implements MemberVisitor {
+public class ResolvedTypeMemberVisitor extends AbstractMemberVisitor {
 
     private final SchemaProvider context;
 
@@ -32,15 +33,19 @@ public class ResolvedTypeMemberVisitor implements MemberVisitor {
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public DocumentationSchema schema(MemberInfoSource member) {
+    protected DocumentationSchema schemaGeneration(MemberInfoSource member) {
         if (context.getSchemaMap().containsKey(modelName(member.getResolvedType()))) {
             DocumentationSchema schema = new DocumentationSchema();
             schema.setType(modelName(member.getResolvedType()));
             schema.setName(member.getName());
             return schema;
         }
+
         ResolvedType resolvedMember = member.getResolvedType();
         Class<?> erasedClass = resolvedMember.getErasedType();
+        if(erasedClass == DateTime.class){
+            return JodaDateTimeMemberVisitor.factory().apply(context).schema(member);
+        }
         if (resolvedMember.getTypeParameters().size() == 0) {
             if (resolvedMember.isPrimitive() || isPrimitive(resolvedMember.getErasedType())) {
                 return PrimitiveMemberVisitor.factory().apply(context).schema(new PrimitiveMemberInfo(erasedClass));
@@ -95,9 +100,9 @@ public class ResolvedTypeMemberVisitor implements MemberVisitor {
         context.getSchemaMap().put(modelName(resolvedMember), objectSchema);
         Map<String, DocumentationSchema> propertyMap = newHashMap();
         for (AliasedResolvedField childField: context.getResolvedFields(resolvedMember)){
-            DocumentationSchema childSchema = context.schema(childField.getResolvedField());
-            if (childSchema != null) {
-                propertyMap.put(childField.getName(), childSchema);
+                DocumentationSchema childSchema = context.schema(childField.getResolvedField());
+                if (childSchema != null) {
+                    propertyMap.put(childField.getName(), childSchema);
             }
         }
         for (ResolvedProperty childProperty: context.getResolvedProperties(resolvedMember)) {

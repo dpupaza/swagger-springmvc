@@ -12,6 +12,12 @@ public class ResolvedFieldInfo implements MemberInfoSource {
     }
 
     @Override
+    public <T extends java.lang.annotation.Annotation>  T getAnnotation(java.lang.Class<T> tClass)
+    {
+        return resolvedField.getRawMember().getAnnotation(tClass);
+    }
+
+    @Override
     public Class<?> getType() {
         return resolvedField.getRawMember().getType();
     }

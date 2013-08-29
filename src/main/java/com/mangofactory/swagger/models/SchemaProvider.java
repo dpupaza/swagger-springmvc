@@ -12,6 +12,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.mangofactory.swagger.AliasedResolvedField;
 import com.wordnik.swagger.core.DocumentationSchema;
+import org.joda.time.DateTime;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -41,6 +42,7 @@ public class SchemaProvider {
             .put(Float.class, PrimitiveMemberVisitor.factory())
             .put(String.class, PrimitiveMemberVisitor.factory())
             .put(Date.class, DateMemberVisitor.factory())
+            .put(DateTime.class, JodaDateTimeMemberVisitor.factory())
             .put(Object.class, ObjectMemberVisitor.factory())
             .put(ResolvedProperty.class, ResolvedTypeMemberVisitor.factory())
             .put(ResolvedObjectType.class, ResolvedTypeMemberVisitor.factory())
