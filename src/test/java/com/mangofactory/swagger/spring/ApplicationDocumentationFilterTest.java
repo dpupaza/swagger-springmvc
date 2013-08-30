@@ -66,7 +66,7 @@ public class ApplicationDocumentationFilterTest {
         applyFilters(filters, context);
 
         assertThat(doc.getSwaggerVersion(), is(notNullValue()));
-        assertThat(doc.swaggerVersion(), equalTo("1.0"));
+        assertThat(doc.swaggerVersion(), equalTo("1.1"));
         assertThat(doc.basePath(), is(notNullValue()));
         assertThat(doc.basePath(), equalTo("/some-path"));
         assertThat(doc.getModels(), is(nullValue()));

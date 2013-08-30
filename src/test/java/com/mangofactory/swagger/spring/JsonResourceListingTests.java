@@ -89,7 +89,7 @@ public class JsonResourceListingTests {
     @SneakyThrows
     public void testSwaggerVersionReturnedCorrectly() {
         mockMvc.perform(builder)
-                .andExpect(jsonPath("$.swaggerVersion").value(equalTo("1.0")));
+                .andExpect(jsonPath("$.swaggerVersion").value(equalTo("1.1")));
     }
 
     @Test

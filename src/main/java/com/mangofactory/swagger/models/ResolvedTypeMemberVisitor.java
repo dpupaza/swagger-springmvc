@@ -52,6 +52,7 @@ public class ResolvedTypeMemberVisitor extends AbstractMemberVisitor {
             } else if (EnumHelper.isEnum(resolvedMember.getErasedType())) {
                 DocumentationSchema schema = new DocumentationSchema();
                 schema.setType(modelName(resolvedMember));
+                schema.setId(schema.getType());
                 schema.setName(resolvedMember.getErasedType().getName());
                 DocumentationAllowableListValues list = new DocumentationAllowableListValues();
                 list.setValues(EnumHelper.getEnumValues(resolvedMember.getErasedType()));
@@ -97,6 +98,7 @@ public class ResolvedTypeMemberVisitor extends AbstractMemberVisitor {
         DocumentationSchema objectSchema = new DocumentationSchema();
         objectSchema.setName(member.getName());
         objectSchema.setType(modelName(resolvedMember));
+        objectSchema.setId(objectSchema.getType());
         context.getSchemaMap().put(modelName(resolvedMember), objectSchema);
         Map<String, DocumentationSchema> propertyMap = newHashMap();
         for (AliasedResolvedField childField: context.getResolvedFields(resolvedMember)){

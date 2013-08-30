@@ -25,10 +25,9 @@ public class JodaDateTimeMemberVisitor extends AbstractMemberVisitor {
     @Override
     public DocumentationSchema schemaGeneration(MemberInfoSource member) {
         Class<?> returnType = member.getType();
-        String propertyType = returnType.getSimpleName();
         DocumentationSchema propertySchema = new DocumentationSchema();
         propertySchema.setName(member.getName());
-        propertySchema.setType(propertyType);
+        propertySchema.setType("date-time");
         propertySchema.setDescription("Accepts ISO 8061 format i.e. 2030-07-16T19:20:30.45+01:00");
         return propertySchema;
     }

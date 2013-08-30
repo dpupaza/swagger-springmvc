@@ -28,7 +28,7 @@ import static com.mangofactory.swagger.models.WildcardType.*;
 
 public class SwaggerConfiguration {
     public static final String API_DOCS_PATH = "/api-docs";
-    public static final String SWAGGER_VERSION = "1.0";
+    public static final String SWAGGER_VERSION = "1.1";
 
     @Getter private final String documentationBasePath;
     @Getter private final String swaggerVersion;
