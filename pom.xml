@@ -75,6 +75,40 @@
             <url>http://repo.springsource.org/libs-milestone/</url>
         </repository>
     </repositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>14.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>2.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-snapshot</id>
@@ -126,10 +160,12 @@
             <artifactId>jackson-core</artifactId>
             <version>2.2.1</version>
         </dependency>
+        <!-- Runtime dependencies -->
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.10.0</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Test dependencies -->
         <dependency>
@@ -153,7 +189,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>0.11.4</version>
+            <version>1.12.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -165,7 +201,7 @@
         <dependency>
             <groupId>com.fasterxml</groupId>
             <artifactId>classmate</artifactId>
-            <version>0.8.0</version>
+            <version>0.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -229,6 +265,27 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <rules>
+                                <DependencyConvergence>
+                                    <uniqueVersions>true</uniqueVersions>
+                                </DependencyConvergence>
+                            </rules>
+                        </configuration>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
